@@ -24,7 +24,6 @@
       overflow-x: hidden;
     }
 
-    /* background glow */
     .bg-blur {
       position: fixed;
       width: 300px;
@@ -124,9 +123,11 @@
       border: 1px solid rgba(255,255,255,0.1);
     }
 
+    /* SLIDER FIX FOR 824x1024 IMAGES */
     .slider {
       position: relative;
-      height: 300px;
+      width: 100%;
+      aspect-ratio: 824 / 1024;
       overflow: hidden;
     }
 
@@ -158,7 +159,6 @@
       background: white;
     }
 
-    /* POPUPS */
     .popup {
       position: fixed;
       inset: 0;
@@ -226,10 +226,6 @@
       .buttons {
         flex-direction: column;
       }
-
-      .slider {
-        height: 240px;
-      }
     }
   </style>
 </head>
@@ -269,7 +265,7 @@
   </div>
 </div>
 
-<!-- ABOUT -->
+<!-- POPUPS -->
 <div class="popup" id="aboutPopup">
   <div class="popup-content">
     <span class="close-btn" onclick="closePopup('aboutPopup')">✕</span>
@@ -283,23 +279,19 @@
   </div>
 </div>
 
-<!-- SOCIAL -->
 <div class="popup" id="socialPopup">
   <div class="popup-content">
     <span class="close-btn" onclick="closePopup('socialPopup')">✕</span>
     <h2>Social Links</h2>
-
     <div class="social-box">Instagram: @alexcarter</div>
     <div class="social-box">TikTok: @alexvideos</div>
     <div class="social-box">YouTube: Alex Media</div>
   </div>
 </div>
 
-<!-- SPECIAL -->
 <div class="popup" id="specialPopup">
   <div class="popup-content">
     <span class="close-btn" onclick="closePopup('specialPopup')">✕</span>
-
     <h2>Exclusive Content</h2>
 
     <div style="display:flex; flex-direction:column; gap:15px; margin-top:20px;">

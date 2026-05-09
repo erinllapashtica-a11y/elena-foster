@@ -200,6 +200,17 @@
           Socials
         </button>
       </div>
+
+      <!-- New Button -->
+      <div style="margin-top: 15px;">
+        <button
+          class="secondary-btn"
+          style="width: 100%; padding: 14px; border-radius: 18px;"
+          onclick="openPopup('specialPopup')"
+        >
+          Exclusive Content
+        </button>
+      </div>
     </div>
 
     <div class="slider">
@@ -230,6 +241,39 @@
       <div class="social-box">TikTok: @alexvideos</div>
       <div class="social-box">YouTube: Alex Media</div>
     </div>
+  </div>
+
+  <!-- New Popup -->
+  <div class="popup" id="specialPopup">
+    <div class="popup-content">
+      <span class="close-btn" onclick="closePopup('specialPopup')">✕</span>
+
+      <h2>Exclusive Content</h2>
+
+      <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+        <div class="social-box">Premium Videos</div>
+        <div class="social-box">Private Gallery</div>
+        <div class="social-box">VIP Access</div>
+
+        <button
+          onclick="window.location.href='https://example.com'"
+          style="
+            margin-top: 10px;
+            padding: 14px;
+            border: none;
+            border-radius: 16px;
+            background: white;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+          "
+        >
+          Visit Website
+        </button>
+      </div>
+    </div>
+  </div>
   </div>
 
   <script>
@@ -287,4 +331,3 @@
 
 </body>
 </html>
-

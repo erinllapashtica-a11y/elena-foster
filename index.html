@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Personal Profile</title>
+
   <style>
     * {
       margin: 0;
@@ -20,6 +21,27 @@
       background: linear-gradient(to bottom, #000, #18181b, #000);
       color: white;
       padding: 20px;
+      overflow-x: hidden;
+    }
+
+    /* background glow */
+    .bg-blur {
+      position: fixed;
+      width: 300px;
+      height: 300px;
+      background: rgba(255,255,255,0.08);
+      filter: blur(100px);
+      border-radius: 50%;
+      top: -100px;
+      right: -100px;
+      animation: float 8s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(30px); }
+      100% { transform: translateY(0px); }
     }
 
     .card {
@@ -31,6 +53,12 @@
       border-radius: 30px;
       overflow: hidden;
       box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      transition: 0.3s ease;
+      z-index: 1;
+    }
+
+    .card:hover {
+      box-shadow: 0 15px 60px rgba(255,255,255,0.08);
     }
 
     .content {
@@ -67,6 +95,7 @@
     .buttons {
       display: flex;
       gap: 15px;
+      flex-wrap: wrap;
     }
 
     .buttons button {
@@ -76,7 +105,11 @@
       border-radius: 18px;
       cursor: pointer;
       font-size: 16px;
-      transition: 0.3s ease;
+      transition: all 0.25s ease;
+    }
+
+    .buttons button:active {
+      transform: scale(0.98);
     }
 
     .primary-btn {
@@ -91,10 +124,6 @@
       border: 1px solid rgba(255,255,255,0.1);
     }
 
-    .buttons button:hover {
-      transform: scale(1.05);
-    }
-
     .slider {
       position: relative;
       height: 300px;
@@ -105,6 +134,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: opacity 0.5s ease;
     }
 
     .dots {
@@ -128,6 +158,7 @@
       background: white;
     }
 
+    /* POPUPS */
     .popup {
       position: fixed;
       inset: 0;
@@ -136,6 +167,15 @@
       justify-content: center;
       align-items: center;
       padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s ease;
+      z-index: 10;
+    }
+
+    .popup.show {
+      opacity: 1;
+      visibility: visible;
     }
 
     .popup-content {
@@ -173,164 +213,167 @@
       border-radius: 14px;
       margin-top: 10px;
     }
+
+    @media (max-width: 480px) {
+      .content {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .buttons {
+        flex-direction: column;
+      }
+
+      .slider {
+        height: 240px;
+      }
+    }
   </style>
 </head>
+
 <body>
 
-  <div class="card">
-    <div class="content">
-      <img
-        class="profile-img"
-        src="img/profile.jpg"
-        alt="Profile"
-      />
+<div class="bg-blur"></div>
 
-      <h1>Elena Foster</h1>
+<div class="card">
+  <div class="content">
 
-      <div class="stars">★★★★★</div>
+    <img class="profile-img" src="img/profile.jpg" />
 
-      <div class="stats">181 videos • 422 photos</div>
+    <h1>Elena Foster</h1>
 
-      <div class="buttons">
-        <button class="primary-btn" onclick="openPopup('aboutPopup')">
-          About Me
-        </button>
+    <div class="stars">★★★★★</div>
 
-        <button class="secondary-btn" onclick="openPopup('socialPopup')">
-          Socials
-        </button>
-      </div>
+    <div class="stats">181 videos • 422 photos</div>
 
-      <!-- New Button -->
-      <div style="margin-top: 15px;">
-        <button
-          class="secondary-btn"
-          style="width: 100%; padding: 14px; border-radius: 18px;"
-          onclick="openPopup('specialPopup')"
-        >
-          Exclusive Content
-        </button>
-      </div>
+    <div class="buttons">
+      <button class="primary-btn" onclick="openPopup('aboutPopup')">About Me</button>
+      <button class="secondary-btn" onclick="openPopup('socialPopup')">Socials</button>
     </div>
 
-    <div class="slider">
-      <img id="sliderImage" src="" alt="Slider Image" />
+    <div style="margin-top: 15px;">
+      <button class="secondary-btn" style="width:100%; padding:14px; border-radius:18px;"
+        onclick="openPopup('specialPopup')">
+        Exclusive Content
+      </button>
+    </div>
 
-      <div class="dots" id="dots"></div>
+  </div>
+
+  <div class="slider">
+    <img id="sliderImage" />
+    <div class="dots" id="dots"></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="popup" id="aboutPopup">
+  <div class="popup-content">
+    <span class="close-btn" onclick="closePopup('aboutPopup')">✕</span>
+    <h2>About Me</h2>
+    <p>
+      Not for the weak minds.<br>
+      Confidence, attitude, and a little bit of chaos.<br>
+      I post bold vibes, tempting energy, and content made to keep you obsessed.<br>
+      If you can’t handle explicit energy… keep scrolling. 😈
+    </p>
+  </div>
+</div>
+
+<!-- SOCIAL -->
+<div class="popup" id="socialPopup">
+  <div class="popup-content">
+    <span class="close-btn" onclick="closePopup('socialPopup')">✕</span>
+    <h2>Social Links</h2>
+
+    <div class="social-box">Instagram: @alexcarter</div>
+    <div class="social-box">TikTok: @alexvideos</div>
+    <div class="social-box">YouTube: Alex Media</div>
+  </div>
+</div>
+
+<!-- SPECIAL -->
+<div class="popup" id="specialPopup">
+  <div class="popup-content">
+    <span class="close-btn" onclick="closePopup('specialPopup')">✕</span>
+
+    <h2>Exclusive Content</h2>
+
+    <div style="display:flex; flex-direction:column; gap:15px; margin-top:20px;">
+      <div class="social-box">Premium Videos</div>
+      <div class="social-box">Private Gallery</div>
+      <div class="social-box">VIP Access</div>
+
+      <button onclick="window.location.href='https://example.com'"
+        style="margin-top:10px; padding:14px; border:none; border-radius:16px; background:white; color:black; font-weight:bold; cursor:pointer;">
+        Visit Website
+      </button>
     </div>
   </div>
+</div>
 
-  <!-- About Popup -->
-  <div class="popup" id="aboutPopup">
-    <div class="popup-content">
-      <span class="close-btn" onclick="closePopup('aboutPopup')">✕</span>
-      <h2>About Me</h2>
-      <p>
-       Not for the weak minds. </br>
-Confidence, attitude, and a little bit of chaos.</br>
-I post bold vibes, tempting energy, and content made to keep you obsessed.</br>
-If you can’t handle explicit energy… keep scrolling. 😈</br>
-      </p>
-    </div>
-  </div>
+<script>
+  const images = [
+    'img/slide1.jpg',
+    'img/slide2.jpg',
+    'img/slide3.jpg'
+  ];
 
-  <!-- Social Popup -->
-  <div class="popup" id="socialPopup">
-    <div class="popup-content">
-      <span class="close-btn" onclick="closePopup('socialPopup')">✕</span>
-      <h2>Social Links</h2>
+  let currentIndex = 0;
 
-      <div class="social-box">Instagram: @alexcarter</div>
-      <div class="social-box">TikTok: @alexvideos</div>
-      <div class="social-box">YouTube: Alex Media</div>
-    </div>
-  </div>
+  const sliderImage = document.getElementById('sliderImage');
+  const dotsContainer = document.getElementById('dots');
 
-  <!-- New Popup -->
-  <div class="popup" id="specialPopup">
-    <div class="popup-content">
-      <span class="close-btn" onclick="closePopup('specialPopup')">✕</span>
+  function renderDots() {
+    dotsContainer.innerHTML = '';
 
-      <h2>Exclusive Content</h2>
+    images.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      if (i === currentIndex) dot.classList.add('active');
 
-      <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
-        <div class="social-box">Premium Videos</div>
-        <div class="social-box">Private Gallery</div>
-        <div class="social-box">VIP Access</div>
+      dot.onclick = () => {
+        currentIndex = i;
+        updateSlider();
+      };
 
-        <button
-          onclick="window.location.href='https://example.com'"
-          style="
-            margin-top: 10px;
-            padding: 14px;
-            border: none;
-            border-radius: 16px;
-            background: white;
-            color: black;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-          "
-        >
-          Visit Website
-        </button>
-      </div>
-    </div>
-  </div>
-  </div>
+      dotsContainer.appendChild(dot);
+    });
+  }
 
-  <script>
-    const images = [
-      'img/slide1.jpg',
-      'img/slide2.jpg',
-      'img/slide3.jpg'
-    ];
+  function updateSlider() {
+    sliderImage.src = images[currentIndex];
+    renderDots();
+  }
 
-    let currentIndex = 0;
-
-    const sliderImage = document.getElementById('sliderImage');
-    const dotsContainer = document.getElementById('dots');
-
-    function renderDots() {
-      dotsContainer.innerHTML = '';
-
-      images.forEach((_, index) => {
-        const dot = document.createElement('div');
-        dot.classList.add('dot');
-
-        if (index === currentIndex) {
-          dot.classList.add('active');
-        }
-
-        dot.addEventListener('click', () => {
-          currentIndex = index;
-          updateSlider();
-        });
-
-        dotsContainer.appendChild(dot);
-      });
-    }
-
-    function updateSlider() {
-      sliderImage.src = images[currentIndex];
-      renderDots();
-    }
-
-    setInterval(() => {
-      currentIndex = (currentIndex + 1) % images.length;
-      updateSlider();
-    }, 3000);
-
-    function openPopup(id) {
-      document.getElementById(id).style.display = 'flex';
-    }
-
-    function closePopup(id) {
-      document.getElementById(id).style.display = 'none';
-    }
-
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % images.length;
     updateSlider();
-  </script>
+  }, 3000);
+
+  function openPopup(id) {
+    const p = document.getElementById(id);
+    p.style.display = 'flex';
+    setTimeout(() => p.classList.add('show'), 10);
+  }
+
+  function closePopup(id) {
+    const p = document.getElementById(id);
+    p.classList.remove('show');
+    setTimeout(() => p.style.display = 'none', 300);
+  }
+
+  window.addEventListener('click', (e) => {
+    document.querySelectorAll('.popup').forEach(p => {
+      if (e.target === p) closePopup(p.id);
+    });
+  });
+
+  updateSlider();
+</script>
 
 </body>
 </html>
